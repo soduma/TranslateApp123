@@ -17,6 +17,8 @@
 		A01EDFE027914A3B003DAC85 /* TranslateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01EDFDF27914A3B003DAC85 /* TranslateViewController.swift */; };
 		A01EDFE227914A78003DAC85 /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01EDFE127914A78003DAC85 /* BookmarkViewController.swift */; };
 		A01EDFE427914E04003DAC85 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01EDFE327914E04003DAC85 /* UIColor+.swift */; };
+		A01EDFE627915870003DAC85 /* SourceTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01EDFE527915870003DAC85 /* SourceTextViewController.swift */; };
+		A01EDFE827916501003DAC85 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01EDFE727916501003DAC85 /* Language.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		A01EDFDF27914A3B003DAC85 /* TranslateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateViewController.swift; sourceTree = "<group>"; };
 		A01EDFE127914A78003DAC85 /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
 		A01EDFE327914E04003DAC85 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		A01EDFE527915870003DAC85 /* SourceTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceTextViewController.swift; sourceTree = "<group>"; };
+		A01EDFE727916501003DAC85 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,7 @@
 				A01EDFC427914620003DAC85 /* AppDelegate.swift */,
 				A01EDFC627914620003DAC85 /* SceneDelegate.swift */,
 				A01EDFE327914E04003DAC85 /* UIColor+.swift */,
+				A01EDFE727916501003DAC85 /* Language.swift */,
 				A01EDFDE27914A23003DAC85 /* Scene */,
 				A01EDFCD27914622003DAC85 /* Assets.xcassets */,
 				A01EDFCF27914622003DAC85 /* LaunchScreen.storyboard */,
@@ -80,6 +85,7 @@
 			children = (
 				A01EDFC827914620003DAC85 /* TabBarController.swift */,
 				A01EDFDF27914A3B003DAC85 /* TranslateViewController.swift */,
+				A01EDFE527915870003DAC85 /* SourceTextViewController.swift */,
 				A01EDFE127914A78003DAC85 /* BookmarkViewController.swift */,
 			);
 			path = Scene;
@@ -168,6 +174,8 @@
 				A01EDFC527914620003DAC85 /* AppDelegate.swift in Sources */,
 				A01EDFC727914620003DAC85 /* SceneDelegate.swift in Sources */,
 				A01EDFE227914A78003DAC85 /* BookmarkViewController.swift in Sources */,
+				A01EDFE827916501003DAC85 /* Language.swift in Sources */,
+				A01EDFE627915870003DAC85 /* SourceTextViewController.swift in Sources */,
 				A01EDFE427914E04003DAC85 /* UIColor+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

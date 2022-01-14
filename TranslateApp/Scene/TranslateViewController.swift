@@ -9,23 +9,30 @@ import UIKit
 import SnapKit
 
 class TranslateViewController: UIViewController {
+    private var sourceLanguage: Language = .ko
+    private var targetLanguage: Language = .en
+    
     private lazy var languageButton: UIButton = {
         let button = UIButton()
-        button.setTitle("한국어", for: .normal)
+        button.setTitle(sourceLanguage.title, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
         button.setTitleColor(.label, for: .normal)
         button.backgroundColor = .systemBackground
         button.layer.cornerRadius = 9
+        
+        button.addTarget(self, action: #selector(tapSourceLanguageButton), for: .touchUpInside)
         return button
     }()
     
     private lazy var targetButton: UIButton = {
         let button = UIButton()
-        button.setTitle("영어", for: .normal)
+        button.setTitle(targetLanguage.title, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
         button.setTitleColor(.label, for: .normal)
         button.backgroundColor = .systemBackground
         button.layer.cornerRadius = 9
+        
+        button.addTarget(self, action: #selector(tapTargetLanguageButton), for: .touchUpInside)
         return button
     }()
     
@@ -68,12 +75,19 @@ class TranslateViewController: UIViewController {
     private lazy var sourceView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemBackground
+        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(tapSourceView))
+        view.addGestureRecognizer(gesture)
         return view
     }()
     
+    @objc func tapSourceView() {
+        present(SourceTextViewController(delegate: self), animated: true, completion: nil)
+    }
+    
     private lazy var sourceLabel: UILabel = {
         let label = UILabel()
-//        label.font = .systemFont(ofSize: 23, weight: .bold)
+        label.font = .systemFont(ofSize: 20, weight: .semibold)
         label.textColor = .tertiaryLabel
         label.text = "텍스트 입력"
 //        label.numberOfLines = 0
@@ -132,5 +146,49 @@ extension TranslateViewController {
         sourceLabel.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(sourceView).inset(defaultSpacing)
         }
+    }
+    
+    @objc func tapSourceLanguageButton() {
+        tapLanguageButton(type: .source)
+    }
+    
+    @objc func tapTargetLanguageButton() {
+        tapLanguageButton(type: .target)
+    }
+    
+    enum `Type` {
+        case source
+        case target
+    }
+    
+    func tapLanguageButton(type: Type) { //enum은 @objc에 넣을 수 없음
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        Language.allCases.forEach { language in
+            let action = UIAlertAction(title: language.title, style: .default) { _ in
+                switch type {
+                case .source:
+                    self.sourceLanguage = language
+                    self.languageButton.setTitle(language.title, for: .normal)
+                case .target:
+                    self.sourceLanguage = language
+                    self.targetButton.setTitle(language.title, for: .normal)
+                }
+            }
+            alertController.addAction(action)
+        }
+        
+        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        alertController.addAction(cancel)
+        present(alertController, animated: true, completion: nil)
+    }
+}
+
+extension TranslateViewController: SourceTextViewControllerDelegate {
+    func didEnter(_ sourceText: String) {
+        if sourceText == "" { return }
+        
+        sourceLabel.text = sourceText
+        sourceLabel.textColor = .label
     }
 }
