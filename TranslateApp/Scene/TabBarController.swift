@@ -15,7 +15,7 @@ class TabBarController: UITabBarController {
         let translateViewController = TranslateViewController()
         translateViewController.tabBarItem = UITabBarItem(title: "번역", image: UIImage(systemName: "mic"), selectedImage: UIImage(systemName: "mic.fill"))
         
-        let bookmarkViewController = BookmarkViewController()
+        let bookmarkViewController = UINavigationController(rootViewController: BookmarkViewController())
         bookmarkViewController.tabBarItem = UITabBarItem(title: "즐겨찾기", image: UIImage(systemName: "star"), selectedImage: UIImage(systemName: "star.fill"))
         tabBar.tintColor = .mainTintColor
         

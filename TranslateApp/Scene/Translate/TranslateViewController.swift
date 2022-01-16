@@ -63,14 +63,34 @@ class TranslateViewController: UIViewController {
     private lazy var bookmarkButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "bookmark"), for: .normal)
+        button.addTarget(self, action: #selector(tapBookmarkButton), for: .touchUpInside)
         return button
     }()
+    
+    @objc func tapBookmarkButton() {
+        guard let translatedText = resultLabel.text,
+              let sourceText = sourceLabel.text,
+              bookmarkButton.imageView?.image == UIImage(systemName: "bookmark") else { return }
+        
+        bookmarkButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+        
+        let currentBookmarks: [Bookmark] = UserDefaults.standard.bookmarks
+        let newBookmark = Bookmark(sourceLanguage: sourceLanguage, translatedLanguage: targetLanguage, sourceText: sourceText, translatedText: translatedText)
+        
+        UserDefaults.standard.bookmarks = [newBookmark] + currentBookmarks
+        print(UserDefaults.standard.bookmarks)
+    }
     
     private lazy var copyButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "doc.on.doc"), for: .normal)
+        button.addTarget(self, action: #selector(tapCopyButton), for: .touchUpInside)
         return button
     }()
+    
+    @objc func tapCopyButton() {
+        UIPasteboard.general.string = resultLabel.text
+    }
     
     private lazy var sourceView: UIView = {
         let view = UIView()
@@ -156,10 +176,7 @@ extension TranslateViewController {
         tapLanguageButton(type: .target)
     }
     
-    enum `Type` {
-        case source
-        case target
-    }
+
     
     func tapLanguageButton(type: Type) { //enum은 @objc에 넣을 수 없음
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -190,5 +207,6 @@ extension TranslateViewController: SourceTextViewControllerDelegate {
         
         sourceLabel.text = sourceText
         sourceLabel.textColor = .label
+        bookmarkButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
     }
 }

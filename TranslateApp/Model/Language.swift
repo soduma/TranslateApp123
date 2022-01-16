@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Language: CaseIterable {
+enum Language: String, CaseIterable, Codable { //enum에서 코더블 사용할땐 꼭 스트링도 같이 해줘야함
     case ko
     case en
     case ja
