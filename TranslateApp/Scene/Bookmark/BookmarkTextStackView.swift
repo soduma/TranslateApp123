@@ -42,11 +42,6 @@ class BookmarkTextStackView: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    private func setUp() {
-//        [languageLabel, textLabel]
-//            .forEach { addArrangedSubview($0) }
-//    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         

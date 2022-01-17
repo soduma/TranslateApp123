@@ -47,6 +47,12 @@ class SourceTextViewController: UIViewController {
             $0.edges.equalToSuperview().inset(16)
         }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        sourceTextView.becomeFirstResponder()
+    }
 }
 
 extension SourceTextViewController: UITextViewDelegate {

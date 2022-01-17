@@ -9,12 +9,11 @@ import UIKit
 import SnapKit
 
 class TranslateViewController: UIViewController {
-    private var sourceLanguage: Language = .ko
-    private var targetLanguage: Language = .en
+    private var translateManager = TranslateManager()
     
     private lazy var languageButton: UIButton = {
         let button = UIButton()
-        button.setTitle(sourceLanguage.title, for: .normal)
+        button.setTitle(translateManager.sourceLanguage.title, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
         button.setTitleColor(.label, for: .normal)
         button.backgroundColor = .systemBackground
@@ -26,7 +25,7 @@ class TranslateViewController: UIViewController {
     
     private lazy var targetButton: UIButton = {
         let button = UIButton()
-        button.setTitle(targetLanguage.title, for: .normal)
+        button.setTitle(translateManager.targetLanguage.title, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
         button.setTitleColor(.label, for: .normal)
         button.backgroundColor = .systemBackground
@@ -55,7 +54,7 @@ class TranslateViewController: UIViewController {
         let label = UILabel()
         label.font = .systemFont(ofSize: 20, weight: .bold)
         label.textColor = .mainTintColor
-        label.text = "달이 익어가니 서둘러 젊은 피야 민들레 한 송이 들고 사랑이 어지러이 떠다니는 밤이야 날아가 사뿐히 이루렴 팽팽한 어둠 사이로 떠오르는 기분 이 거대한 무중력에 혹 휘청해도 두렵진 않을 거야 푸르른 우리 위로 커다란 strawberry moon 한 스쿱"
+        label.text = "😎"
         label.numberOfLines = 0
         return label
     }()
@@ -75,7 +74,7 @@ class TranslateViewController: UIViewController {
         bookmarkButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
         
         let currentBookmarks: [Bookmark] = UserDefaults.standard.bookmarks
-        let newBookmark = Bookmark(sourceLanguage: sourceLanguage, translatedLanguage: targetLanguage, sourceText: sourceText, translatedText: translatedText)
+        let newBookmark = Bookmark(sourceLanguage: translateManager.sourceLanguage, translatedLanguage: translateManager.targetLanguage, sourceText: sourceText, translatedText: translatedText)
         
         UserDefaults.standard.bookmarks = [newBookmark] + currentBookmarks
         print(UserDefaults.standard.bookmarks)
@@ -110,7 +109,7 @@ class TranslateViewController: UIViewController {
         label.font = .systemFont(ofSize: 20, weight: .semibold)
         label.textColor = .tertiaryLabel
         label.text = "텍스트 입력"
-//        label.numberOfLines = 0
+        label.numberOfLines = 0
         return label
     }()
     
@@ -119,10 +118,6 @@ class TranslateViewController: UIViewController {
         
         view.backgroundColor = .secondarySystemBackground
         setUpView()
-        
-        TranslateManager().translate(from: "나 지금 바빠") {
-            print(("🤬\($0)"))
-        }
     }
 }
 
@@ -180,8 +175,6 @@ extension TranslateViewController {
         tapLanguageButton(type: .target)
     }
     
-
-    
     func tapLanguageButton(type: Type) { //enum은 @objc에 넣을 수 없음
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -189,10 +182,10 @@ extension TranslateViewController {
             let action = UIAlertAction(title: language.title, style: .default) { _ in
                 switch type {
                 case .source:
-                    self.sourceLanguage = language
+                    self.translateManager.sourceLanguage = language
                     self.languageButton.setTitle(language.title, for: .normal)
                 case .target:
-                    self.sourceLanguage = language
+                    self.translateManager.targetLanguage = language
                     self.targetButton.setTitle(language.title, for: .normal)
                 }
             }
@@ -212,5 +205,9 @@ extension TranslateViewController: SourceTextViewControllerDelegate {
         sourceLabel.text = sourceText
         sourceLabel.textColor = .label
         bookmarkButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
+        
+        translateManager.translate(from: sourceText) { [weak self] translatedText in
+            self?.resultLabel.text = translatedText
+        }
     }
 }
