@@ -11,6 +11,9 @@ import SnapKit
 class TranslateViewController: UIViewController {
     private var translateManager = TranslateManager()
     
+    let scrollView = UIScrollView()
+    let contentView = UIView()
+    
     private lazy var languageButton: UIButton = {
         let button = UIButton()
         button.setTitle(translateManager.sourceLanguage.title, for: .normal)
@@ -117,6 +120,17 @@ class TranslateViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .secondarySystemBackground
+        view.addSubview(scrollView)
+        scrollView.snp.makeConstraints {
+            $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview()
+        }
+        
+        scrollView.addSubview(contentView)
+        contentView.snp.makeConstraints {
+            $0.edges.width.equalToSuperview()
+        }
+        
         setUpView()
     }
 }
@@ -124,12 +138,12 @@ class TranslateViewController: UIViewController {
 extension TranslateViewController {
     func setUpView() {
         [buttonStackView, resultView, resultLabel, bookmarkButton, copyButton, sourceView, sourceLabel]
-            .forEach { view.addSubview($0) }
+            .forEach { contentView.addSubview($0) }
         
         let defaultSpacing: CGFloat = 20
         
         buttonStackView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(defaultSpacing)
+            $0.top.equalToSuperview().inset(defaultSpacing)
             $0.leading.trailing.equalToSuperview().inset(defaultSpacing)
             $0.height.equalTo(50)
         }
@@ -159,7 +173,9 @@ extension TranslateViewController {
         sourceView.snp.makeConstraints {
             $0.top.equalTo(resultView.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(10)
+            $0.bottom.equalToSuperview().inset(10)
+            $0.height.equalTo(100)
+            $0.height.equalTo(sourceLabel).offset(20)
         }
         
         sourceLabel.snp.makeConstraints {
