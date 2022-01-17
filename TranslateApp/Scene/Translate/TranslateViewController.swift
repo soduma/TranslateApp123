@@ -119,6 +119,10 @@ class TranslateViewController: UIViewController {
         
         view.backgroundColor = .secondarySystemBackground
         setUpView()
+        
+        TranslateManager().translate(from: "나 지금 바빠") {
+            print(("🤬\($0)"))
+        }
     }
 }
 
