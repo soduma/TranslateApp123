@@ -1,0 +1,18 @@
+/* 
+  Localizable.strings
+  TranslateApp
+
+  Created by 장기화 on 2022/01/17.
+  
+*/
+"Translate" = "번역";
+"Bookmark" = "즐겨찾기";
+
+"Korean" = "한국어";
+"English" = "영어";
+"Japanese" = "일본어";
+"Chinese" = "중국어";
+
+"Cancel" = "취소하기";
+
+"Enter Text" = "텍스트 입력";

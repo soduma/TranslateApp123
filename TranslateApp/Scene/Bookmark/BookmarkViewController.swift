@@ -27,7 +27,7 @@ class BookmarkViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "즐겨찾기"
+        title = NSLocalizedString("Bookmark", comment: "")
         navigationController?.navigationBar.prefersLargeTitles = true
         
         setUpView()
