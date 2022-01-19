@@ -174,8 +174,8 @@ extension TranslateViewController {
             $0.top.equalTo(resultView.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview().inset(10)
-            $0.height.equalTo(100)
-            $0.height.equalTo(sourceLabel).offset(20)
+            $0.height.greaterThanOrEqualTo(100)
+            $0.height.equalTo(sourceLabel).offset(100)
         }
         
         sourceLabel.snp.makeConstraints {
